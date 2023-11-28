@@ -15,4 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::group(['prefix' => 'user'], function () {
+        Route::post('logout', [\App\Http\Controllers\Api\UserController::class, 'logout']);
+    });
+});
+
+
 Route::view('/{any}', 'layouts.app')->middleware(['auth'])->where('any', '.*');

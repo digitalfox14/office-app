@@ -18,7 +18,7 @@
                 </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item">My Profile</a>
-                    <a class="dropdown-item">Logout</a>
+                    <a class="dropdown-item" @click="logoutUser()">Logout</a>
                 </div>
             </li>
         </ul>
@@ -27,6 +27,16 @@
 
 <script>
 export default {
-    name: "navigation-bar"
+    name: 'navigation-bar',
+
+    methods: {
+        logoutUser () {
+            axios.post('/user/logout', {}).then((resp) => {
+
+            }).catch((err) => {
+                console.log(err)
+            });
+        }
+    }
 }
 </script>
