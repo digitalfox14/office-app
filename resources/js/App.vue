@@ -1,15 +1,27 @@
 <template>
     <div>
-        <router-view></router-view>
+        <navigation />
+        <sidebar />
+        <div class="page-wrapper">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 
 <script>
+import Navigation from '@/components/Navigation.vue'
+import Sidebar from '@/components/Sidebar.vue'
+
 export default {
     data () {
         return {
-            message: 'Hello World',
+
         };
     },
+
+    components: {
+        Navigation,
+        Sidebar,
+    }
 }
 </script>

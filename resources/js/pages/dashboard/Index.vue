@@ -1,12 +1,12 @@
 <template>
     <div class="content">
-        <h1>Hello Im here</h1>
+        <h1>Welcome to your dashboard</h1>
     </div>
 </template>
 
 <script>
 export default {
-    data () {
+    data() {
         return {
 
         };
