@@ -11,7 +11,7 @@
                         <a href="#"><img src="/img/digi.png" alt=""></a>
                     </div>
                     <div class="form-group">
-                        <label>Username</label>
+                        <label>name</label>
                         <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                         @error('name')
                         <span class="invalid-feedback" role="alert">
