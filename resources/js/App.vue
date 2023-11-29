@@ -2,6 +2,7 @@
     <div>
         <navigation />
         <sidebar />
+       
         <div class="page-wrapper">
             <router-view></router-view>
         </div>
@@ -11,6 +12,7 @@
 <script>
 import Navigation from '@/components/Navigation.vue'
 import Sidebar from '@/components/Sidebar.vue'
+
 
 export default {
     data () {
@@ -22,6 +24,7 @@ export default {
     components: {
         Navigation,
         Sidebar,
+     
     }
 }
 </script>

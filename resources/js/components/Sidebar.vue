@@ -6,7 +6,7 @@
                     <ul>
                         <li class="menu-title">Main</li>
                         <li class="active">
-                            <a><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                            <a><i class="fa fa-dashboard"></i><RouterLink to="/home"> <span>Dashboard</span></RouterLink></a>
                         </li>
                     </ul>
                 </div>
