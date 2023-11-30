@@ -15,7 +15,8 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-
+    <link rel="stylesheet" type="text/css" href="/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -29,6 +30,9 @@
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/jquery.slimscroll.js"></script>
+    <script src="/js/select2.min.js"></script>
+    <script src="/js/moment.min.js"></script>
     <script src="/js/app.js"></script>
+
 </body>
 </html>

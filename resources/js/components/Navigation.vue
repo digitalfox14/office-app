@@ -14,11 +14,11 @@
                         <img class="rounded-circle" src="/img/user.jpg" width="24" alt="image">
                         <span class="status online"></span>
                     </span>
-                    <span>Admin</span>
+                    <span>{{ authUserName }}</span>
                 </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item">My Profile</a>
-                    <a class="dropdown-item" @click="logoutUser()">Logout</a>
+                    <a class="dropdown-item" href="#" @click="logoutUser()">Logout</a>
                 </div>
             </li>
         </ul>
@@ -28,15 +28,34 @@
 <script>
 export default {
     name: 'navigation-bar',
+    
+    data (){
+        return{
+            authUserName: {},
+        }
+    },
+    mounted(){
+        this.userName();
+    },
 
     methods: {
         logoutUser () {
-            axios.post('/user/logout', {}).then((resp) => {
-
+            axios.post('/user/logout', {}).then((respones) => {
+                window.location.reload();
             }).catch((err) => {
                 console.log(err)
             });
+        },
+
+        userName() {
+            axios.get('/user/username').then((response) => {
+                // console.log(response.data);
+                this.authUserName = response.data.name;
+            }).catch((err)=>{
+                console.log(err);
+            });
         }
+        
     }
 }
 </script>

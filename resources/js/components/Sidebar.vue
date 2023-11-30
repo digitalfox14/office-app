@@ -6,7 +6,12 @@
                     <ul>
                         <li class="menu-title">Main</li>
                         <li class="active">
-                            <a><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                            <router-link class="fa fa-dashboard" to="/home"><span>Dashboard</span></router-link>
+                            <!-- <a><i class="fa fa-dashboard"></i> <span>Dashboard</span></a> -->
+                        </li>
+                        <li>
+                             <router-link class="fa fa-clock-o" to="/attendanceTable"><span>Attendance</span></router-link>
+                            <!-- <a><i class="fa fa-clock-o"></i> <span>Attendance</span></a> -->
                         </li>
                     </ul>
                 </div>
@@ -16,7 +21,7 @@
 </template>
 
 <script>
-export default {
-    name: "side-bar"
-}
+    export default {
+        name: "side-bar"
+    }
 </script>
