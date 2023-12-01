@@ -1,9 +1,11 @@
 .page-wrapper .content {
     padding: 30px;
 }
+
 .page-wrapper .content .page-header {
     margin-bottom: 1.875rem;
 }
+
 .row {
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 0;
@@ -13,16 +15,19 @@
     margin-right: calc(-.5 * var(--bs-gutter-x));
     margin-left: calc(-.5 * var(--bs-gutter-x));
 }
+
 .col-sm-12 {
     flex: 0 0 auto;
     width: 100%;
 }
+
 .page-wrapper .content .page-header .page-title {
     color: #1f1f1f;
     font-size: 26px;
     font-weight: 500;
     margin-bottom: 5px;
 }
+
 .breadcrumb {
     background-color: transparent;
     color: #6c757d;
@@ -31,6 +36,7 @@
     margin: 0;
     padding: 0;
 }
+
 .breadcrumb-item.active {
     color: var(--bs-breadcrumb-item-active-color);
 }
@@ -38,6 +44,7 @@
 .breadcrumb-item+.breadcrumb-item {
     padding-left: var(--bs-breadcrumb-item-padding-x);
 }
+
 .row {
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 0;
@@ -50,6 +57,7 @@
     flex-direction: row;
     justify-content: center;
 }
+
 .card {
     border: 1px solid #ededed;
     margin-bottom: 30px;
@@ -57,21 +65,25 @@
     -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
+
 .card-body {
     flex: 1 1 auto;
     padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
     color: var(--bs-card-color);
 }
+
 .col-md-4 {
     flex: 0 0 auto;
     width: 33.33333333%;
 }
+
 .card .card-title {
     color: #1f1f1f;
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 20px;
 }
+
 .punch-det {
     background-color: #f9f9f9;
     border: 1px solid #e3e3e3;
@@ -79,26 +91,30 @@
     margin: 0 0 20px;
     padding: 10px 15px;
 }
+
 .punch-info {
     margin: 0 0 20px;
 }
 
 .punch-info .punch-hours {
-   
+
     font-size: 28px;
     height: 120px;
     width: 120px;
     margin: 0 auto;
     border-radius: 50%;
-    text-align:center
+    text-align: center
 }
+
 .text-muted {
     color: #8e8e8e !important;
 }
+
 .punch-btn-section {
     text-align: center;
     margin: 0 0 20px;
 }
+
 .punch-btn-section .punch-btn {
     font-size: 18px;
     font-weight: 600;
@@ -106,16 +122,19 @@
     padding: 8px 40px px;
     border-radius: 50px;
 }
+
 .statistics {
-        margin: 0;
-        padding: 0;
-        border: 0;
-        font-size: 100%;
-        vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
 }
+
 * {
     box-sizing: border-box;
 }
+
 .row {
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 0;
@@ -125,16 +144,20 @@
     margin-right: calc(-.5 * var(--bs-gutter-x));
     margin-left: calc(-.5 * var(--bs-gutter-x));
 }
+
 .text-center {
     text-align: center !important;
 }
+
 .punch-status .stats-box {
     margin-bottom: 0;
 }
+
 .col-md-4 {
     flex: 0 0 auto;
     width: 33.33333333%;
 }
+
 .card {
     border: 1px solid #ededed;
     margin-bottom: 30px;
@@ -142,24 +165,28 @@
     -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
+
 .card-body {
     flex: 1 1 auto;
     padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
     color: var(--bs-card-color);
 }
+
 .card .card-title {
     color: #1f1f1f;
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 20px;
 }
+
 .stats-list {
-        margin: 0;
-        padding: 0;
-        border: 0;
-        font-size: 100%;
-        vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
 }
+
 .att-statistics .stats-info {
     background-color: #ffffff;
     border: 1px solid #e5e5e5;
@@ -168,13 +195,27 @@
     margin: 0 0 5px;
     padding: 15px;
 }
-.att-statistics .progress {
-    height: 4px;
-}
 
 .att-statistics .progress {
     height: 4px;
 }
 
+.att-statistics .progress {
+    height: 4px;
+}
 
+.sidebar-menu a {
+    text-decoration: none;
+}
 
+.select {
+    font-weight: normal;
+    line-height: 44px;
+    background: #FFF;
+    width: 100%;
+    font-family: 'Rubik', sans-serif;
+    font-size: 0.875rem;
+    color: #666;
+    padding: 6px;
+    border: 1px solid #dcdcdc;
+}

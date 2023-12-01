@@ -12,12 +12,12 @@ class UserController extends Controller
 {
     public function logout(Request $request)
     {
-        // die('im here');
         Auth::logout();
+
         return response()->json(['status' => 1]);
     }
 
-    public function userName(Request $request)
+    public function refreshUser(Request $request)
     {
       $user =  Auth::user();
     

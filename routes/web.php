@@ -20,7 +20,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'user'], function () {
         Route::post('logout', [\App\Http\Controllers\Api\UserController::class, 'logout']);
-        Route::get('username', [\App\Http\Controllers\Api\UserController::class, 'userName']);
+        Route::get('refresh', [\App\Http\Controllers\Api\UserController::class, 'refreshUser']);
     });
 });
 

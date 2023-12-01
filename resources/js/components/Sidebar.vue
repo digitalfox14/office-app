@@ -6,12 +6,14 @@
                     <ul>
                         <li class="menu-title">Main</li>
                         <li class="active">
-                            <router-link class="fa fa-dashboard" to="/home"><span>Dashboard</span></router-link>
-                            <!-- <a><i class="fa fa-dashboard"></i> <span>Dashboard</span></a> -->
+                            <router-link :to="{ name: 'Dashboard' }">
+                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                            </router-link>
                         </li>
-                        <li>
-                             <router-link class="fa fa-clock-o" to="/attendanceTable"><span>Attendance</span></router-link>
-                            <!-- <a><i class="fa fa-clock-o"></i> <span>Attendance</span></a> -->
+                        <li v-if="user.role_id==1">
+                            <router-link :to="{name: 'Attendance'}">
+                                <i class="fa fa-clock-o"></i> <span>Attendance</span>
+                            </router-link>
                         </li>
                     </ul>
                 </div>
@@ -21,7 +23,13 @@
 </template>
 
 <script>
-    export default {
-        name: "side-bar"
-    }
+import { mapState } from 'vuex'
+
+export default {
+    name: 'side-bar',
+
+    computed: mapState({
+        user: state => state.userModule.user
+    }),
+}
 </script>

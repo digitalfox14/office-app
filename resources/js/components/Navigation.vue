@@ -14,7 +14,7 @@
                         <img class="rounded-circle" src="/img/user.jpg" width="24" alt="image">
                         <span class="status online"></span>
                     </span>
-                    <span>{{ authUserName }}</span>
+                    <span>{{ user.name }}</span>
                 </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item">My Profile</a>
@@ -26,36 +26,30 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 export default {
     name: 'navigation-bar',
     
-    data (){
-        return{
-            authUserName: {},
+    data () {
+        return {
+
         }
     },
-    mounted(){
-        this.userName();
+
+    computed: mapState({
+        user: state => state.userModule.user,
+    }),
+
+    mounted () {
+        this.getUser();
     },
 
     methods: {
-        logoutUser () {
-            axios.post('/user/logout', {}).then((respones) => {
-                window.location.reload();
-            }).catch((err) => {
-                console.log(err)
-            });
-        },
-
-        userName() {
-            axios.get('/user/username').then((response) => {
-                // console.log(response.data);
-                this.authUserName = response.data.name;
-            }).catch((err)=>{
-                console.log(err);
-            });
-        }
-        
+        ...mapActions({
+            logoutUser: 'userModule/logoutUser',
+            getUser: 'userModule/getUser'
+        }),
     }
 }
 </script>

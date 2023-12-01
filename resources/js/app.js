@@ -16,8 +16,10 @@ import { createApp } from 'vue';
 import OfficeApp from '@/App.vue';
 
 import router from '@/router'
+import store from '@/store'
 
 const app = createApp({});
       app.component('office-app', OfficeApp);
       app.use(router)
+      app.use(store)
       app.mount('#app');

@@ -1,8 +1,9 @@
-import AttendanceTable from '@/pages/AttendanceTable.vue'
+import AttendanceTable from '@/pages/attendance/index.vue'
 
 export default [
     {
-        path: '/attendanceTable',
+        name: 'Attendance',
+        path: '/attendance',
         component: AttendanceTable
     }
 ]
