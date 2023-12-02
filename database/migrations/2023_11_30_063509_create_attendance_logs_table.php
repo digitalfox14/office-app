@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('attendance_logs', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('attendance_id');
-            $table->string('punch_in');
-            $table->string('punch_out');
+            $table->integer('user_id')->nullable();
+            $table->integer('attendance_id')->nullable();
+            $table->string('punch_in')->nullable();
+            $table->string('punch_out')->nullable();
             $table->timestamps();
         });
     }

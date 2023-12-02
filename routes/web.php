@@ -21,6 +21,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'user'], function () {
         Route::post('logout', [\App\Http\Controllers\Api\UserController::class, 'logout']);
         Route::get('refresh', [\App\Http\Controllers\Api\UserController::class, 'refreshUser']);
+        Route::post('attendance', [\App\Http\Controllers\AttendanceController::class, 'userAttendance']);
+        Route::get('createAttLog', [\App\Http\Controllers\AttendanceController::class, 'createLog']);
     });
 });
 

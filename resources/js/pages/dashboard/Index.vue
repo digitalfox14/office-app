@@ -1,7 +1,6 @@
 <template>
     <div class="content">
         <div class="content container-fluid">
-
             <!-- Page Header -->
             <div class="page-header">
                 <div class="row">
@@ -15,7 +14,6 @@
                 </div>
             </div>
             <!-- /Page Header -->
-
             <div class="row">
                 <div class="col-md-6">
                     <div class="card punch-status">
@@ -31,7 +29,7 @@
                                 </div>
                             </div>
                             <div class="punch-btn-section">
-                                <button type="button" class="btn btn-primary punch-btn">Punch Out</button>
+                                <button type="button" class="btn btn-primary punch-btn" @click="userAttendance()">Punch In</button>                            
                             </div>
                         </div>
                     </div>
@@ -80,10 +78,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
-
             <div class="row">
                 <div class="col-sm-4 col-3">
                     <h4 class="page-title">Employee</h4>
@@ -95,13 +90,15 @@
             <div class="row filter-row">
                 <div class="col-sm-6 col-md-3">
                     <div class="form-group form-focus">
+                         <label class="focus-label">Date</label>
                         <input type="date" class="form-control floating">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="form-group form-focus select-focus">
-                        <select class="select floating">
-                            <option>Select Month</option>
+                        <label class="focus-label">Select Month</label>
+                        <select class="select floating form-control floating">
+                            <option>-</option>
                             <option>Jun</option>
                             <option>Feb</option>
                             <option>Mar</option>
@@ -119,8 +116,9 @@
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="form-group form-focus select-focus">
-                        <select class="select floating">
-                            <option>Select Year</option>
+                         <label class="focus-label">Select Year</label>
+                        <select class="select floating form-control floating">
+                            <option>-</option>
                             <option>{{ currYear }}</option>
                             <option>{{ currYear + 1 }}</option>
                             <option>{{ currYear + 2 }}</option>
@@ -132,10 +130,6 @@
                             <option>{{ currYear + 8 }}</option>
                             <option>{{ currYear + 9 }}</option>
                             <option>{{ currYear + 10 }}</option>
-
-
-
-
                         </select>
                     </div>
                 </div>
@@ -158,8 +152,13 @@
                                     <th>Overtime</th>
                                 </tr>
                             </thead>
+                                <tr v-for="att, i in attLog" :key="i">
+                                    <td>{{ att.id }}</td>
+                                    <td></td>
+                                    <td>{{ att.punch_in }}</td>
+                                    <td>{{ att.punc_out }}</td>
+                                </tr>
                             <tbody>
-
                             </tbody>
                         </table>
                     </div>
@@ -170,7 +169,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+
+import { mapState, mapActions } from 'vuex'
+
 
 export default {
     data() {
@@ -180,7 +181,19 @@ export default {
     },
 
     computed: mapState({
-        user: state => state.userModule.user
+        user: state => state.userModule.user,
+        attLog: state => state.userModule.attLog
+        
     }),
+    mounted () {
+        this.getAttLog();
+    },
+    
+    methods: {
+        ...mapActions({
+            userAttendance: 'userModule/userAttendance',
+            getAttLog: 'userModule/getAttLog'
+        }),
+    }
 }
 </script>

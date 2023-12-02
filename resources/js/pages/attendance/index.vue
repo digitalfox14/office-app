@@ -13,9 +13,9 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-3">
-                <div class="form-group form-focus select-focus">
+                <div class="form-group form-focus select-focus ">
                     <label class="focus-label">Select Month</label>
-                    <select class="select floating">
+                    <select class="select floating form-control floating">
                         <option>-</option>
                         <option>Jan</option>
                         <option>Feb</option>
@@ -35,13 +35,19 @@
             <div class="col-sm-6 col-md-3">
                 <div class="form-group form-focus select-focus">
                     <label class="focus-label">Select Year</label>
-                    <select class="select floating">
+                    <select class="select floating form-control floating">
                         <option>-</option>
-                        <option>2017</option>
-                        <option>2016</option>
-                        <option>2015</option>
-                        <option>2014</option>
-                        <option>2013</option>
+                        <option>{{ currYear }}</option>
+                        <option>{{ currYear + 1 }}</option>
+                        <option>{{ currYear + 2 }}</option>
+                        <option>{{ currYear + 3 }}</option>
+                        <option>{{ currYear + 4 }}</option>
+                        <option>{{ currYear + 5 }}</option>
+                        <option>{{ currYear + 6 }}</option>
+                        <option>{{ currYear + 7 }}</option>
+                        <option>{{ currYear + 8 }}</option>
+                        <option>{{ currYear + 9 }}</option>
+                        <option>{{ currYear + 10 }}</option>
                     </select>
                 </div>
             </div>
@@ -99,8 +105,8 @@
                                 <td><i class="fa fa-check text-success"></i> </td>
                                 <td>
                                     <div class="half-day"><span class="first-off"><i
-                                                class="fa fa-check text-success"></i></span> <span class="first-off"><i
-                                                class="fa fa-close text-danger"></i></span></div>
+                                        class="fa fa-check text-success"></i></span> <span class="first-off"><i
+                                        class="fa fa-close text-danger"></i></span></div>
                                 </td>
                                 <td><i class="fa fa-check text-success"></i> </td>
                                 <td><i class="fa fa-check text-success"></i> </td>
@@ -117,8 +123,8 @@
                                 <td><i class="fa fa-check text-success"></i> </td>
                                 <td>
                                     <div class="half-day"><span class="first-off"><i
-                                                class="fa fa-close text-danger"></i></span> <span class="first-off"><i
-                                                class="fa fa-check text-success"></i></span></div>
+                                        class="fa fa-close text-danger"></i></span> <span class="first-off"><i
+                                        class="fa fa-check text-success"></i></span></div>
                                 </td>
                                 <td><i class="fa fa-check text-success"></i> </td>
                                 <td><i class="fa fa-check text-success"></i> </td>
@@ -163,7 +169,6 @@
                                 <td><i class="fa fa-check text-success"></i> </td>
                                 <td><i class="fa fa-check text-success"></i> </td>
                             </tr>
-
                         </tbody>
                     </table>
                 </div>
@@ -177,7 +182,7 @@ export default {
     name: 'index',
     data() {
         return {
-
+            currYear: new Date().getFullYear(),
         };
     }
 }
