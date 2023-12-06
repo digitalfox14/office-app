@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id')->nullable;
             $table->date('date')->nullable;
+            $table->integer('loagged')->nullable();
             $table->timestamps();
         });
     }

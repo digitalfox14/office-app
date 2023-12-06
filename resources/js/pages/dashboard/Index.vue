@@ -28,8 +28,9 @@
                                     <span>3.45 hrs</span>
                                 </div>
                             </div>
-                            <div class="punch-btn-section">
-                                <button type="button" class="btn btn-primary punch-btn" @click="userAttendance()">Punch In</button>                            
+                            <div class="punch-btn-section"> 
+                                <button v-if="punchLog && !punchLog.punch_out && punchLog.id"  class="btn btn-warning punch-btn" @click="punchOut(punchLog.id)">Punch Out</button>
+                                <button v-else type="button" class="btn btn-primary punch-btn" @click="punchIn()">Punch In</button> 
                             </div>
                         </div>
                     </div>
@@ -152,13 +153,13 @@
                                     <th>Overtime</th>
                                 </tr>
                             </thead>
-                                <tr v-for="att, i in attLog" :key="i">
-                                    <td>{{ att.id }}</td>
-                                    <td></td>
-                                    <td>{{ att.punch_in }}</td>
-                                    <td>{{ att.punc_out }}</td>
-                                </tr>
                             <tbody>
+                                <tr v-for="data, index in attLog" :key="index">
+                                    <td>{{ data.id }}</td>
+                                    <td>{{ moment(data.date).format('DD MMM YYYY') }}</td>
+                                    <td>{{ moment(data.punch_in.punch_in).format('H:mm A') }}</td>
+                                    <td>{{ moment(data.punch_out.punch_out).format('H:mm A') }}</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -171,28 +172,34 @@
 <script>
 
 import { mapState, mapActions } from 'vuex'
+import moment from 'moment'
 
 
 export default {
     data() {
         return {
             currYear: new Date().getFullYear(),
+            moment,
         };
     },
 
     computed: mapState({
         user: state => state.userModule.user,
-        attLog: state => state.userModule.attLog
+        attLog: state => state.userModule.attLog,
+        punchLog: state => state.userModule.punchLog
         
     }),
     mounted () {
-        this.getAttLog();
+        this.getAttLog()
+        this.punch()
     },
     
     methods: {
         ...mapActions({
-            userAttendance: 'userModule/userAttendance',
-            getAttLog: 'userModule/getAttLog'
+            punchIn: 'userModule/punchIn',
+            getAttLog: 'userModule/getAttLog',
+            punch: 'userModule/punch',
+            punchOut: 'userModule/punchOut'
         }),
     }
 }
