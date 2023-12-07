@@ -18,8 +18,8 @@ export default {
     },
     punchIn (store) {
         axios.post('/user/punch-in').then((resp) => {
-            window.location.reload();
-            store.commit(resp.data);
+            store.commit('SET_PUNCH', resp.data);
+            store.dispatch('getAttLog');
         }).catch((err) =>{
             console.log(err)
         });
@@ -40,7 +40,8 @@ export default {
     },
     punchOut (store, $id) {
         axios.post('/user/punch-out/' +$id).then((resp) => {
-            window.location.reload();
+            store.commit('SET_PUNCH', resp.data);
+            store.dispatch('getAttLog');
         }).catch((err) =>{
             console.log(err)
         });

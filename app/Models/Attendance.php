@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Attendance extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'date'];
+    protected $fillable = ['user_id', 'date', 'loagged'];
 
     public function punchIn()
     {

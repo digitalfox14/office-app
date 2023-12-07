@@ -28,7 +28,7 @@ class AttendanceController extends Controller
         return response()->json($attendanceLog);
     }
 
-    public function createLog(Request $request)
+    public function getAttendance(Request $request)
     {
         $attendance = Attendance::with(['punchIn', 'punchOut'])->get();
 
@@ -48,10 +48,26 @@ class AttendanceController extends Controller
 
     public function punchOut(Request $request, $id)
     {
-        $user = AttendanceLogs::find($id);
-        $user->update([
+        $user = $request->user();
+        $punch = AttendanceLogs::find($id);
+
+        $punch->update([
             'punch_out' => Carbon::now()
         ]);
-        return response()->json($user);
+
+        $startTime = Carbon::parse($punch->punch_in);
+        $endTime = Carbon::parse($punch->punch_out);
+
+        $totalDuration = $endTime->diffInMinutes($startTime);
+
+        $Attendance = Attendance::where('user_id', $user->id)
+                                    ->orderBy('id', 'desc')
+                                    ->first();
+        $loagged_value = $Attendance->loagged;
+        $Attendance->update([
+            'loagged' => $loagged_value + $totalDuration
+        ]);
+
+        return response()->json($punch);
     }
 }

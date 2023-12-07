@@ -157,8 +157,9 @@
                                 <tr v-for="data, index in attLog" :key="index">
                                     <td>{{ data.id }}</td>
                                     <td>{{ moment(data.date).format('DD MMM YYYY') }}</td>
-                                    <td>{{ moment(data.punch_in.punch_in).format('H:mm A') }}</td>
-                                    <td>{{ moment(data.punch_out.punch_out).format('H:mm A') }}</td>
+                                    <td>{{ moment(data.punch_in.punch_in).format('HH:mm A') }}</td>
+                                    <td>{{ moment(data.punch_out.punch_out).format('HH:mm A') }}</td>
+                                    <td>{{ data.loagged }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -202,5 +203,6 @@ export default {
             punchOut: 'userModule/punchOut'
         }),
     }
+
 }
 </script>
