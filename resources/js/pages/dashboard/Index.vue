@@ -28,9 +28,11 @@
                                     <span>3.45 hrs</span>
                                 </div>
                             </div>
-                            <div class="punch-btn-section"> 
-                                <button v-if="punchLog && !punchLog.punch_out && punchLog.id"  class="btn btn-warning punch-btn" @click="punchOut(punchLog.id)">Punch Out</button>
-                                <button v-else type="button" class="btn btn-primary punch-btn" @click="punchIn()">Punch In</button> 
+                            <div class="punch-btn-section">
+                                <button v-if="punchLog && !punchLog.punch_out && punchLog.id"
+                                    class="btn btn-warning punch-btn" @click="punchOut(punchLog.id)">Punch Out</button>
+                                <button v-else type="button" class="btn btn-primary punch-btn" @click="punchIn()">Punch
+                                    In</button>
                             </div>
                         </div>
                     </div>
@@ -91,16 +93,16 @@
             <div class="row filter-row">
                 <div class="col-sm-6 col-md-3">
                     <div class="form-group form-focus">
-                         <label class="focus-label">Date</label>
+                        <label class="focus-label">Date</label>
                         <input type="date" class="form-control floating">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="form-group form-focus select-focus">
                         <label class="focus-label">Select Month</label>
-                        <select class="select floating form-control floating">
+                        <select class="select floating">
                             <option>-</option>
-                            <option>Jun</option>
+                            <option>Jan</option>
                             <option>Feb</option>
                             <option>Mar</option>
                             <option>Apr</option>
@@ -117,20 +119,20 @@
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="form-group form-focus select-focus">
-                         <label class="focus-label">Select Year</label>
-                        <select class="select floating form-control floating">
+                        <label class="focus-label">Select Year</label>
+                        <select class="select floating">
                             <option>-</option>
                             <option>{{ currYear }}</option>
-                            <option>{{ currYear + 1 }}</option>
-                            <option>{{ currYear + 2 }}</option>
-                            <option>{{ currYear + 3 }}</option>
-                            <option>{{ currYear + 4 }}</option>
-                            <option>{{ currYear + 5 }}</option>
-                            <option>{{ currYear + 6 }}</option>
-                            <option>{{ currYear + 7 }}</option>
-                            <option>{{ currYear + 8 }}</option>
-                            <option>{{ currYear + 9 }}</option>
-                            <option>{{ currYear + 10 }}</option>
+                            <option>{{ currYear - 1 }}</option>
+                            <option>{{ currYear - 2 }}</option>
+                            <option>{{ currYear - 3 }}</option>
+                            <option>{{ currYear - 4 }}</option>
+                            <option>{{ currYear - 5 }}</option>
+                            <option>{{ currYear - 6 }}</option>
+                            <option>{{ currYear - 7 }}</option>
+                            <option>{{ currYear - 8 }}</option>
+                            <option>{{ currYear - 9 }}</option>
+                            <option>{{ currYear - 10 }}</option>
                         </select>
                     </div>
                 </div>
@@ -154,12 +156,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="data, index in attLog" :key="index">
+                                <tr v-for="data, index in attendance" :key="index">
                                     <td>{{ data.id }}</td>
                                     <td>{{ moment(data.date).format('DD MMM YYYY') }}</td>
-                                    <td>{{ moment(data.punch_in.punch_in).format('HH:mm A') }}</td>
-                                    <td>{{ moment(data.punch_out.punch_out).format('HH:mm A') }}</td>
+                                    <td>{{ data.punch_in && data.punch_in.punch_in ?
+                                        (moment(data.punch_in.punch_in).format('HH:mm A')) : '-' }}</td>
+                                    <td>{{ data.punch_out && data.punch_out.punch_out ?
+                                        (moment(data.punch_out.punch_out).format('HH:mm A')) : '-' }}</td>
                                     <td>{{ data.loagged }}</td>
+
                                 </tr>
                             </tbody>
                         </table>
@@ -186,21 +191,26 @@ export default {
 
     computed: mapState({
         user: state => state.userModule.user,
-        attLog: state => state.userModule.attLog,
+        attendance: state => state.userModule.attendance,
         punchLog: state => state.userModule.punchLog
-        
+
     }),
-    mounted () {
-        this.getAttLog()
+    mounted() {
+        this.getAttendanceLog()
         this.punch()
+            if ($('.floating').length > 0) {
+                $('.floating').on('focus blur', function (e) {
+                    $(this).parents('.form-focus').toggleClass('focused', (e.type === 'focus' || this.value.length > 0));
+                }).trigger('blur');
+            }
     },
-    
+
     methods: {
         ...mapActions({
             punchIn: 'userModule/punchIn',
-            getAttLog: 'userModule/getAttLog',
+            getAttendanceLog: 'userModule/getAttendanceLog',
             punch: 'userModule/punch',
-            punchOut: 'userModule/punchOut'
+            punchOut: 'userModule/punchOut',
         }),
     }
 

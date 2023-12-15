@@ -1,6 +1,6 @@
 /*
 Author       : Dreamguys
-×îÐÂ×îÈ«×îºÃµÄBootstrapÄ£°å£ºhttp://www.bootstrapmb.com
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½Ãµï¿½BootstrapÄ£ï¿½å£ºhttp://www.bootstrapmb.com
 Version      : 1.0
 */
 $(document).ready(function($) {
@@ -77,12 +77,12 @@ $(document).ready(function($) {
 	});
 	
 	// Select 2
-	if($('.select').length > 0) {
-		$('.select').select2({
-			minimumResultsForSearch: -1,
-			width: '100%'
-		});
-	}
+	// if($('.select').length > 0) {
+	// 	$('.select').select2({
+	// 		minimumResultsForSearch: -1,
+	// 		width: '100%'
+	// 	});
+	// }
 	
 	// Floating Label
 	if($('.floating').length > 0) {

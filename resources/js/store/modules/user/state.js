@@ -1,5 +1,5 @@
 export default {
     user: {},
-    attLog: {},
-    punchLog: {}
+    punchLog: {},
+    userAttendance: {}
 }

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Attendance;
 use App\Models\AttendanceLogs;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Vtiful\Kernel\Format;
 
 
 class AttendanceController extends Controller
@@ -31,7 +33,6 @@ class AttendanceController extends Controller
     public function getAttendance(Request $request)
     {
         $attendance = Attendance::with(['punchIn', 'punchOut'])->get();
-
         return response()->json($attendance);
     }
 
@@ -69,5 +70,33 @@ class AttendanceController extends Controller
         ]);
 
         return response()->json($punch);
+    }
+
+    public function userAttendance()
+    {
+        $currentMonth   = date('m');
+        $currentYear    = date('Y');
+
+        $users = User::with('attendances')->where('role_id', 2)->get();
+        $days  = range(1, cal_days_in_month(CAL_GREGORIAN, $currentMonth, $currentYear));
+        $dates  =  array_fill_keys(array_keys(array_flip($days)), 0);
+
+        $attendances = [];
+
+        foreach ($users as $key => $user) {
+            $attendances[$key]['user'] = $user->name;
+            $attendances[$key]['attendances'] = $dates;
+
+            foreach ($user->attendances as $attendance) {
+                $date = date('d', strtotime($attendance->date));
+                $date = (int) $date;
+
+                if (array_key_exists($date, $days)){
+                    $attendances[$key]['attendances'][$date] = 1;
+                }
+            }
+        }
+
+        return response()->json(['days' => $days, 'attendances' => $attendances]);
     }
 }

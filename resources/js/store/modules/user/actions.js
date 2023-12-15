@@ -19,14 +19,14 @@ export default {
     punchIn (store) {
         axios.post('/user/punch-in').then((resp) => {
             store.commit('SET_PUNCH', resp.data);
-            store.dispatch('getAttLog');
+            store.dispatch('getAttendanceLog');
         }).catch((err) =>{
             console.log(err)
         });
     },
-    getAttLog (store) {
-        axios.get('/user/get-att').then((resp) => {
-            store.commit('SET_ATTlOG', resp.data);
+    getAttendanceLog (store) {
+        axios.get('/user/get-attendance').then((resp) => {
+            store.commit('SET_ATTENDANCE', resp.data);
         }).catch((err) =>{
             console.log(err)
         });
@@ -41,8 +41,15 @@ export default {
     punchOut (store, $id) {
         axios.post('/user/punch-out/' +$id).then((resp) => {
             store.commit('SET_PUNCH', resp.data);
-            store.dispatch('getAttLog');
+            store.dispatch('getAttendanceLog');
         }).catch((err) =>{
+            console.log(err)
+        });
+    },
+    getUserAttendance (store) {
+        axios.get('/user/get-user-attendance').then((resp) => {
+            store.commit('SET_USER_ATTENDANCE', resp.data);
+        }).catch((err) => {
             console.log(err)
         });
     }

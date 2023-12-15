@@ -19,4 +19,5 @@ class Attendance extends Model
     {
         return $this->hasOne(AttendanceLogs::class, 'attendance_id', 'id')->orderBy('id', 'desc');
     }
+
 }
