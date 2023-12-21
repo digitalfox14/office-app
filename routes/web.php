@@ -26,7 +26,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('punch-log', [\App\Http\Controllers\AttendanceController::class, 'punchLog']);
         Route::post('punch-out/{id}', [\App\Http\Controllers\AttendanceController::class, 'punchOut']);
         Route::get('get-user-attendance', [\App\Http\Controllers\AttendanceController::class, 'userAttendance']);
-        // Route::get('filter-attendance', [\App\Http\Controllers\AttendanceController::class, 'filterAttendance']);
     });
 });
 

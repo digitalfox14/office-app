@@ -32,7 +32,21 @@ class AttendanceController extends Controller
 
     public function getAttendance(Request $request)
     {
-        $attendance = Attendance::with(['punchIn', 'punchOut'])->get();
+        $user           = $request->user();
+        $selectMonth    = $request->month;
+        $selectYear     = $request->year;
+        $currentMonth   = date('m');
+        $currentYear    = date('Y');
+
+        if( $selectMonth && $selectYear) {
+            $attendance = Attendance::with(['punchIn', 'punchOut'])->where('user_id', $user->id)
+                                                                ->whereMonth('created_at', $selectMonth)
+                                                                ->whereYear('created_at', $selectYear)->get();
+        } else {
+            $attendance = Attendance::with(['punchIn', 'punchOut'])->where('user_id', $user->id)
+                ->whereMonth('created_at', $currentMonth)
+                ->whereYear('created_at', $currentYear)->get();
+        }
         return response()->json($attendance);
     }
 
@@ -51,6 +65,12 @@ class AttendanceController extends Controller
     {
         $user = $request->user();
         $punch = AttendanceLogs::find($id);
+        $punchIn = AttendanceLogs::where('user_id', $user->id)->whereDate('created_at',  Carbon::today()->toDateString())->orderBy('id', 'asc')->first();
+        $punchOut = AttendanceLogs::where('user_id', $user->id)->whereDate('created_at', Carbon::today()->toDateString())->orderBy('id', 'desc')->first();
+
+        $start_punchIn  = Carbon::parse($punchIn->punch_in);
+        $end_punchOut   = Carbon::parse($punchOut->punch_out);
+        $total_time = $end_punchOut->diffInMinutes($start_punchIn);
 
         $punch->update([
             'punch_out' => Carbon::now()
@@ -64,9 +84,15 @@ class AttendanceController extends Controller
         $Attendance = Attendance::where('user_id', $user->id)
                                     ->orderBy('id', 'desc')
                                     ->first();
-        $loagged_value = $Attendance->loagged;
+        
+
+        $loagged_value  = $Attendance->loagged;
+        $loagged        = $loagged_value + $totalDuration;
+        $break    = $total_time - $loagged_value;
+
         $Attendance->update([
-            'loagged' => $loagged_value + $totalDuration
+            'loagged' => $loagged,
+            'break' => $break,
         ]);
 
         return response()->json($punch);

@@ -100,28 +100,26 @@
                 <div class="col-sm-6 col-md-3">
                     <div class="form-group form-focus select-focus">
                         <label class="focus-label">Select Month</label>
-                        <select class="select floating">
-                            <option>-</option>
-                            <option>Jan</option>
-                            <option>Feb</option>
-                            <option>Mar</option>
-                            <option>Apr</option>
-                            <option>May</option>
-                            <option>Jun</option>
-                            <option>Jul</option>
-                            <option>Aug</option>
-                            <option>Sep</option>
-                            <option>Oct</option>
-                            <option>Nov</option>
-                            <option>Dec</option>
+                        <select class="select floating" name="month" v-model="params.month" @change="handleFilter">
+                            <option value="1">Jan</option>
+                            <option value="2">Feb</option>
+                            <option value="3">Mar</option>
+                            <option value="4">Apr</option>
+                            <option value="5">May</option>
+                            <option value="6">Jun</option>
+                            <option value="7">Jul</option>
+                            <option value="8">Aug</option>
+                            <option value="9">Sep</option>
+                            <option value="10">Oct</option>
+                            <option value="11">Nov</option>
+                            <option value="12">Dec</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="form-group form-focus select-focus">
                         <label class="focus-label">Select Year</label>
-                        <select class="select floating">
-                            <option>-</option>
+                        <select class="select floating" name="year" v-model="params.year" @change="handleFilter">
                             <option>{{ currYear }}</option>
                             <option>{{ currYear - 1 }}</option>
                             <option>{{ currYear - 2 }}</option>
@@ -157,13 +155,14 @@
                             </thead>
                             <tbody>
                                 <tr v-for="data, index in attendance" :key="index">
-                                    <td>{{ data.id }}</td>
+                                    <td>{{ ++index }}</td>
                                     <td>{{ moment(data.date).format('DD MMM YYYY') }}</td>
                                     <td>{{ data.punch_in && data.punch_in.punch_in ?
                                         (moment(data.punch_in.punch_in).format('HH:mm A')) : '-' }}</td>
                                     <td>{{ data.punch_out && data.punch_out.punch_out ?
                                         (moment(data.punch_out.punch_out).format('HH:mm A')) : '-' }}</td>
-                                    <td>{{ data.loagged }}</td>
+                                    <td>{{ Math.floor( data.loagged / 60)}}:{{ data.loagged % 60 }} hrs</td>
+                                    <td>{{ Math.floor(data.break / 60) }}:{{ data.break % 60 }} hrs</td>
 
                                 </tr>
                             </tbody>
@@ -186,6 +185,10 @@ export default {
         return {
             currYear: new Date().getFullYear(),
             moment,
+             params: {
+                month: new Date().getMonth() + 1,
+                year: new Date().getFullYear(),
+            },
         };
     },
 
@@ -213,6 +216,10 @@ export default {
             punch: 'userModule/punch',
             punchOut: 'userModule/punchOut',
         }),
+         handleFilter(event) {
+            console.log(this.params);
+            this.getAttendanceLog(this.params);
+        },
     }
 
 }

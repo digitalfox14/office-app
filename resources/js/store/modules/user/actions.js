@@ -25,8 +25,8 @@ export default {
             console.log(err)
         });
     },
-    getAttendanceLog (store) {
-        axios.get('/user/get-attendance').then((resp) => {
+    getAttendanceLog (store, params) {
+        axios.get('/user/get-attendance', { params }).then((resp) => {
             store.commit('SET_ATTENDANCE', resp.data);
         }).catch((err) =>{
             console.log(err)
@@ -43,6 +43,7 @@ export default {
         axios.post('/user/punch-out/' +$id).then((resp) => {
             store.commit('SET_PUNCH', resp.data);
             store.dispatch('getAttendanceLog');
+            console.log(resp.data);
         }).catch((err) =>{
             console.log(err)
         });
@@ -55,12 +56,4 @@ export default {
         });
     },
 
-    // filterAttendance(store, params) {
-    //     axios.get('/user/filter-attendance', { params }).then((resp) => {
-    //         console.log(resp.data);
-    //         store.commit('SET_USER_ATTENDANCE', resp.data);
-    //     }).catch((err) => {
-    //         console.log(err)
-    //     });
-    // }
 }
