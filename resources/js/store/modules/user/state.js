@@ -1,5 +1,5 @@
 export default {
     user: {},
     punchLog: {},
-    userAttendance: {}
+    userAttendance: {},
 }

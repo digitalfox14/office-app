@@ -10,6 +10,6 @@ export default {
     },
     SET_USER_ATTENDANCE (store, userAttendance) {
         store.userAttendance = userAttendance;
-    }
+    },
     
 }

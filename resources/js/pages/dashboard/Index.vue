@@ -198,11 +198,12 @@ export default {
     mounted() {
         this.getAttendanceLog()
         this.punch()
-            if ($('.floating').length > 0) {
-                $('.floating').on('focus blur', function (e) {
-                    $(this).parents('.form-focus').toggleClass('focused', (e.type === 'focus' || this.value.length > 0));
-                }).trigger('blur');
-            }
+
+        if ($('.floating').length > 0) {
+            $('.floating').on('focus blur', function (e) {
+                $(this).parents('.form-focus').toggleClass('focused', (e.type === 'focus' || this.value.length > 0));
+            }).trigger('blur');
+        }
     },
 
     methods: {

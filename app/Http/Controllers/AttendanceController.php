@@ -72,13 +72,28 @@ class AttendanceController extends Controller
         return response()->json($punch);
     }
 
-    public function userAttendance()
+    public function userAttendance(Request $request)
     {
+        $selectMonth    = $request->month;
+        $selectYear     = $request->year;
         $currentMonth   = date('m');
         $currentYear    = date('Y');
 
-        $users = User::with('attendances')->where('role_id', 2)->get();
-        $days  = range(1, cal_days_in_month(CAL_GREGORIAN, $currentMonth, $currentYear));
+        if($selectMonth && $selectYear) {
+            $users = User::where('role_id', 2)->with('attendances', function($query) use ($request) {
+                                        $query->whereMonth('created_at', $request->month)
+                                        ->whereYear('created_at', $request->year)->get();
+                                        })->get();
+        } else {
+            $users = User::with('attendances')->where('role_id' , 2)->orWhere('created_at', $currentMonth && $currentYear)->get();
+        }
+
+        if($selectMonth && $selectYear) {
+            $days  = range(1, cal_days_in_month(CAL_GREGORIAN, $selectMonth, $selectYear));
+        } else {
+            $days = range(1, cal_days_in_month(CAL_GREGORIAN, $currentMonth, $currentYear));
+        }
+
         $dates  =  array_fill_keys(array_keys(array_flip($days)), 0);
 
         $attendances = [];

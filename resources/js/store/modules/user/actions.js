@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Value } from "sass";
 
 export default {
     logoutUser (store) {
@@ -46,11 +47,20 @@ export default {
             console.log(err)
         });
     },
-    getUserAttendance (store) {
-        axios.get('/user/get-user-attendance').then((resp) => {
+    getUserAttendance (store, params) {
+        axios.get('/user/get-user-attendance', { params }).then((resp) => {
             store.commit('SET_USER_ATTENDANCE', resp.data);
         }).catch((err) => {
             console.log(err)
         });
-    }
+    },
+
+    // filterAttendance(store, params) {
+    //     axios.get('/user/filter-attendance', { params }).then((resp) => {
+    //         console.log(resp.data);
+    //         store.commit('SET_USER_ATTENDANCE', resp.data);
+    //     }).catch((err) => {
+    //         console.log(err)
+    //     });
+    // }
 }
