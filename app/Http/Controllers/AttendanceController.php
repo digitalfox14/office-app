@@ -88,11 +88,18 @@ class AttendanceController extends Controller
 
         $loagged_value  = $Attendance->loagged;
         $loagged        = $loagged_value + $totalDuration;
-        $break    = $total_time - $loagged_value;
+        $break          = $total_time - $loagged;
+
+        if ($loagged > 480) {
+            $overTime = $loagged - 480;
+        } else {
+            $overTime = null;
+        }
 
         $Attendance->update([
-            'loagged' => $loagged,
-            'break' => $break,
+            'loagged'   => $loagged,
+            'break'     => $break,
+            'over_time' => $overTime
         ]);
 
         return response()->json($punch);
@@ -139,5 +146,13 @@ class AttendanceController extends Controller
         }
 
         return response()->json(['days' => $days, 'attendances' => $attendances]);
+    }
+
+    public function timeSheet(Request $request)
+    {
+        $user = $request->user();
+        $timesheet = Attendance::with('timesheetPunchin')->where('user_id', $user->id)->orderBy('id' , 'desc')->first();
+
+        return response()->json($timesheet);
     }
 }

@@ -2,7 +2,7 @@ import axios from "axios";
 import { Value } from "sass";
 
 export default {
-    logoutUser (store) {
+    logoutUser(store) {
         axios.post('/user/logout', {}).then((respones) => {
             window.location.reload();
         }).catch((err) => {
@@ -10,50 +10,58 @@ export default {
         });
     },
 
-    getUser (store) {
+    getUser(store) {
         axios.get('/user/refresh').then((resp) => {
             store.commit('SET_USER', resp.data);
         }).catch((err) => {
             console.log(err);
         });
     },
-    punchIn (store) {
+    punchIn(store) {
         axios.post('/user/punch-in').then((resp) => {
             store.commit('SET_PUNCH', resp.data);
             store.dispatch('getAttendanceLog');
-        }).catch((err) =>{
+            store.dispatch('getTimesheet');
+        }).catch((err) => {
             console.log(err)
         });
     },
-    getAttendanceLog (store, params) {
+    getAttendanceLog(store, params) {
         axios.get('/user/get-attendance', { params }).then((resp) => {
             store.commit('SET_ATTENDANCE', resp.data);
-        }).catch((err) =>{
+        }).catch((err) => {
             console.log(err)
         });
     },
-    punch (store) {
+    punch(store) {
         axios.get('/user/punch-log').then((resp) => {
             store.commit('SET_PUNCH', resp.data);
         }).catch((err) => {
             console.log(err)
         });
     },
-    punchOut (store, $id) {
-        axios.post('/user/punch-out/' +$id).then((resp) => {
+    punchOut(store, $id) {
+        axios.post('/user/punch-out/' + $id).then((resp) => {
             store.commit('SET_PUNCH', resp.data);
             store.dispatch('getAttendanceLog');
-            console.log(resp.data);
-        }).catch((err) =>{
+            store.dispatch('getTimesheet');
+        }).catch((err) => {
             console.log(err)
         });
     },
-    getUserAttendance (store, params) {
+    getUserAttendance(store, params) {
         axios.get('/user/get-user-attendance', { params }).then((resp) => {
             store.commit('SET_USER_ATTENDANCE', resp.data);
         }).catch((err) => {
             console.log(err)
         });
     },
+    getTimesheet(store) {
+        axios.get('/user/get-timesheet').then((resp) => {
+            store.commit('SET_TIMESHEET', resp.data);
+        }).catch((err) => {
+            console.log(err)
+        });
+    }
 
 }

@@ -11,5 +11,8 @@ export default {
     SET_USER_ATTENDANCE (store, userAttendance) {
         store.userAttendance = userAttendance;
     },
+    SET_TIMESHEET (store, timesheet) {
+        store.timesheet = timesheet;
+    }
     
 }

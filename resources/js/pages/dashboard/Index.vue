@@ -18,14 +18,14 @@
                 <div class="col-md-6">
                     <div class="card punch-status">
                         <div class="card-body">
-                            <h5 class="card-title">Timesheet <small class="text-muted">11 Mar 2019</small></h5>
+                            <h5 class="card-title">Timesheet <small class="text-muted">{{ moment().format('DD MMM YYYY') }}</small></h5>
                             <div class="punch-det">
                                 <h6>Punch In at</h6>
-                                <p>Wed, 11th Mar 2019 10.00 AM</p>
+                                <p>{{ timesheet.timesheet_punchin && moment(timesheet.timesheet_punchin.punch_in).format('ddd, Do MMM YYYY HH:mm A') }}</p>
                             </div>
                             <div class="punch-info">
                                 <div class="punch-hours">
-                                    <span>3.45 hrs</span>
+                                    <span>{{ Math.floor(timesheet.loagged / 60) }}:{{ timesheet.loagged % 60 }} hrs</span>
                                 </div>
                             </div>
                             <div class="punch-btn-section">
@@ -157,12 +157,11 @@
                                 <tr v-for="data, index in attendance" :key="index">
                                     <td>{{ ++index }}</td>
                                     <td>{{ moment(data.date).format('DD MMM YYYY') }}</td>
-                                    <td>{{ data.punch_in && data.punch_in.punch_in ?
-                                        (moment(data.punch_in.punch_in).format('HH:mm A')) : '-' }}</td>
-                                    <td>{{ data.punch_out && data.punch_out.punch_out ?
-                                        (moment(data.punch_out.punch_out).format('HH:mm A')) : '-' }}</td>
+                                    <td>{{ data.punch_in && data.punch_in.punch_in ? (moment(data.punch_in.punch_in).format('HH:mm A')) : '-' }}</td>
+                                    <td>{{ data.punch_out && data.punch_out.punch_out ? (moment(data.punch_out.punch_out).format('HH:mm A')) : '-' }}</td>
                                     <td>{{ Math.floor( data.loagged / 60)}}:{{ data.loagged % 60 }} hrs</td>
                                     <td>{{ Math.floor(data.break / 60) }}:{{ data.break % 60 }} hrs</td>
+                                    <td>{{ Math.floor(data.over_time / 60) }}:{{ data.over_time % 60 }} hrs</td>
 
                                 </tr>
                             </tbody>
@@ -195,12 +194,14 @@ export default {
     computed: mapState({
         user: state => state.userModule.user,
         attendance: state => state.userModule.attendance,
-        punchLog: state => state.userModule.punchLog
+        punchLog: state => state.userModule.punchLog,
+        timesheet: state => state.userModule.timesheet
 
     }),
     mounted() {
         this.getAttendanceLog()
         this.punch()
+        this.getTimesheet()
 
         if ($('.floating').length > 0) {
             $('.floating').on('focus blur', function (e) {
@@ -215,6 +216,7 @@ export default {
             getAttendanceLog: 'userModule/getAttendanceLog',
             punch: 'userModule/punch',
             punchOut: 'userModule/punchOut',
+            getTimesheet: 'userModule/getTimesheet'
         }),
          handleFilter(event) {
             console.log(this.params);
