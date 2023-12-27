@@ -155,4 +155,39 @@ class AttendanceController extends Controller
 
         return response()->json($timesheet);
     }
+
+    public function statistics(Request $request)
+    {
+        $user = $request->user();
+        $now = Carbon::now();
+
+
+        $today = Attendance::where('user_id', $user->id)->orderBy('id' , 'desc')->first('loagged');
+        $today = $today->loagged;
+        $today_percentage = ($today / 480) * 100;
+
+
+        $thisweek = Attendance::where('user_id', $user->id)->whereBetween("created_at", [
+            $now->startOfWeek()->format('Y-m-d'),
+            $now->endOfWeek()->format('Y-m-d')
+        ])->sum('loagged');
+        $week_percentage = ($thisweek / 2400) * 100;
+
+        $thismonth = Attendance::where('user_id', $user->id)->whereBetween("created_at", [
+            $now->startOfmonth()->format('Y-m-d'),
+            $now->endOfmonth()->format('Y-m-d')
+        ])->sum('loagged');
+        $month_percentage = ($thismonth / 9600) * 100;
+
+        $remaining_percentage = ((9600 -$thismonth) / 9600) * 100;
+
+        if(9600 < $thismonth) {
+        $over_time = ($thismonth - 9600);
+        } else {
+            $over_time = 0;
+        }
+        $over_percentage = ($over_time / 960) * 100;
+
+        return response()->json([ 'today' => $today, 'thisweek' => $thisweek , 'thismonth' => $thismonth, 'week_percentage' => $week_percentage, 'month_percentage' => $month_percentage, 'today_percentage' => $today_percentage, 'remaining_percentage' => $remaining_percentage, 'over_time' => $over_time, 'over_percentage' => $over_percentage]);
+    }
 }

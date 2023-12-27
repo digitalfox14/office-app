@@ -13,6 +13,9 @@ export default {
     },
     SET_TIMESHEET (store, timesheet) {
         store.timesheet = timesheet;
+    },
+    SET_STATISTICS (store, statistics) {
+        store.statistics = statistics;
     }
     
 }

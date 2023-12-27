@@ -3,5 +3,6 @@ export default {
     punchLog: {},
     userAttendance: {},
     attendance: {},
-    timesheet: {}
+    timesheet: {},
+    statistics: {}
 }

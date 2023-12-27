@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('punch-out/{id}', [\App\Http\Controllers\AttendanceController::class, 'punchOut']);
         Route::get('get-user-attendance', [\App\Http\Controllers\AttendanceController::class, 'userAttendance']);
         Route::get('get-timesheet', [\App\Http\Controllers\AttendanceController::class, 'timeSheet']);
+        Route::get('get-statistics', [\App\Http\Controllers\AttendanceController::class, 'statistics']);
     });
 });
 

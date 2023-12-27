@@ -22,6 +22,7 @@ export default {
             store.commit('SET_PUNCH', resp.data);
             store.dispatch('getAttendanceLog');
             store.dispatch('getTimesheet');
+            store.dispatch('getStatistics');
         }).catch((err) => {
             console.log(err)
         });
@@ -45,6 +46,7 @@ export default {
             store.commit('SET_PUNCH', resp.data);
             store.dispatch('getAttendanceLog');
             store.dispatch('getTimesheet');
+            store.dispatch('getStatistics');
         }).catch((err) => {
             console.log(err)
         });
@@ -59,6 +61,13 @@ export default {
     getTimesheet(store) {
         axios.get('/user/get-timesheet').then((resp) => {
             store.commit('SET_TIMESHEET', resp.data);
+        }).catch((err) => {
+            console.log(err)
+        });
+    },
+    getStatistics(store) {
+        axios.get('/user/get-statistics').then((resp) => {
+            store.commit('SET_STATISTICS', resp.data);
         }).catch((err) => {
             console.log(err)
         });

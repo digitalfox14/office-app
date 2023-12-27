@@ -43,37 +43,37 @@
                             <h5 class="card-title">Statistics</h5>
                             <div class="stats-list">
                                 <div class="stats-info">
-                                    <p>Today <strong>3.45 <small>/ 8 hrs</small></strong></p>
+                                    <p>Today <strong>{{ Math.floor(statistics.today / 60) }}:{{ statistics.today % 60 }}<small>/ 8 hrs</small></strong></p>
                                     <div class="progress">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 31%"
+                                        <div class="progress-bar bg-primary" role="progressbar" :style="{ width: statistics.today_percentage +'%'}"
                                             aria-valuenow="31" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                                 <div class="stats-info">
-                                    <p>This Week <strong>28 <small>/ 40 hrs</small></strong></p>
+                                    <p>This Week <strong>{{ Math.floor(statistics.thisweek / 60) }}:{{ statistics.thisweek % 60 }}<small>/ 40 hrs</small></strong></p>
                                     <div class="progress">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 31%"
+                                        <div class="progress-bar bg-warning" role="progressbar" :style="{ width: statistics.week_percentage +'%' }"
                                             aria-valuenow="31" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                                 <div class="stats-info">
-                                    <p>This Month <strong>90 <small>/ 160 hrs</small></strong></p>
+                                    <p>This Month <strong>{{ Math.floor(statistics.thismonth / 60) }}:{{ statistics.thismonth % 60 }}<small>/ 160 hrs</small></strong></p>
                                     <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 62%"
+                                        <div class="progress-bar bg-success" role="progressbar" :style="{ width: statistics.month_percentage +'%' }"
                                             aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                                 <div class="stats-info">
-                                    <p>Remaining <strong>90 <small>/ 160 hrs</small></strong></p>
+                                    <p>Remaining <strong>{{ Math.floor( (9600-statistics.thismonth) / 60) }}:{{ (9600-statistics.thismonth) % 60 }} <small>/ 160 hrs</small></strong></p>
                                     <div class="progress">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 62%"
+                                        <div class="progress-bar bg-danger" role="progressbar" :style="{ width: statistics.remaining_percentage +'%' }"
                                             aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                                 <div class="stats-info">
-                                    <p>Overtime <strong>4</strong></p>
+                                    <p>Overtime <strong>{{ statistics.over_time }} <small>/80 hrs</small></strong></p>
                                     <div class="progress">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 22%"
+                                        <div class="progress-bar bg-info" role="progressbar" :style="{ width: statistics.over_percentage +'%' }"
                                             aria-valuenow="22" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
@@ -177,6 +177,7 @@
 
 import { mapState, mapActions } from 'vuex'
 import moment from 'moment'
+import { nextTick } from 'vue';
 
 
 export default {
@@ -195,13 +196,17 @@ export default {
         user: state => state.userModule.user,
         attendance: state => state.userModule.attendance,
         punchLog: state => state.userModule.punchLog,
-        timesheet: state => state.userModule.timesheet
+        timesheet: state => state.userModule.timesheet,
+        statistics: state => state.userModule.statistics
+
 
     }),
+
     mounted() {
         this.getAttendanceLog()
         this.punch()
         this.getTimesheet()
+        this.getStatistics()
 
         if ($('.floating').length > 0) {
             $('.floating').on('focus blur', function (e) {
@@ -216,7 +221,8 @@ export default {
             getAttendanceLog: 'userModule/getAttendanceLog',
             punch: 'userModule/punch',
             punchOut: 'userModule/punchOut',
-            getTimesheet: 'userModule/getTimesheet'
+            getTimesheet: 'userModule/getTimesheet',
+            getStatistics: 'userModule/getStatistics'
         }),
          handleFilter(event) {
             console.log(this.params);
